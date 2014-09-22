@@ -10,6 +10,10 @@ import android.view.Window;
 
 import com.superdict.jingouxu.mysuperdict.R;
 import com.superdict.jingouxu.mysuperdict.utils.Constants;
+import com.superdict.jingouxu.mysuperdict.utils.Utils;
+import com.superdict.jingouxu.mysuperdict.utils.WordList;
+
+import java.io.IOException;
 
 /**
  * The login screen displaying animation to the user
@@ -23,6 +27,11 @@ public class WelcomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_welcome);
+        try {
+            WordList.getInstance(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

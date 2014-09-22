@@ -14,6 +14,11 @@ import com.superdict.jingouxu.mysuperdict.fragments.NavigationDrawerFragment;
 import com.superdict.jingouxu.mysuperdict.R;
 import com.superdict.jingouxu.mysuperdict.fragments.SearchFragment;
 import com.superdict.jingouxu.mysuperdict.utils.Constants;
+import com.superdict.jingouxu.mysuperdict.utils.Utils;
+import com.superdict.jingouxu.mysuperdict.utils.WordList;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.superdict.jingouxu.mysuperdict.activities.NavigationDrawerActivity.ActivityUsage.*;
 
@@ -31,6 +36,8 @@ public class NavigationDrawerActivity extends SherlockFragmentActivity
     private CharSequence mTitle;
 
     private ActivityUsage mUsage;
+
+    public ArrayList<String> wordList;
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -54,6 +61,11 @@ public class NavigationDrawerActivity extends SherlockFragmentActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         handleIntent(getIntent());
+        try {
+            wordList = WordList.getInstance(this).list;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         selectFragment();
     }
 

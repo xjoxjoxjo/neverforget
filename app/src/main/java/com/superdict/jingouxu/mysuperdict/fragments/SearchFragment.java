@@ -7,8 +7,13 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.superdict.jingouxu.mysuperdict.R;
+import com.superdict.jingouxu.mysuperdict.activities.NavigationDrawerActivity;
+import com.superdict.jingouxu.mysuperdict.utils.Constants;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,7 +50,11 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        ArrayList<String> list = ((NavigationDrawerActivity)getActivity()).wordList;
+        View rootView = inflater.inflate(R.layout.fragment_search, container, false);
+        SearchView sv = (SearchView)rootView.findViewById(R.id.search_word_view);
+        sv.setQueryHint(list.get(Constants.WORDS_LIST_LENGTH - 1));
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
