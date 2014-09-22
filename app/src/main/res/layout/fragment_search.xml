@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/searchbg"
+    tools:context=".fragments.SearchFragment">
+
+    <!--EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/word_to_search"
+        android:maxLines="1"
+        android:drawableLeft="@drawable/magnifier"/-->
+
+    <SearchView
+        android:id="@+id/search_word_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:queryHint="@string/word_to_search"
+        android:iconifiedByDefault="false"
+        >
+
+
+    </SearchView>
+
+</RelativeLayout>

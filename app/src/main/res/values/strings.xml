@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">never forget</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+
+    <!-- Welcome activity -->
+    <string name="welcom_text1">never forget</string>
+    <string name="welcom_text2">Henaner</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!--Search Fragment-->
+    <string name="word_to_search">search word...</string>
+
+</resources>
