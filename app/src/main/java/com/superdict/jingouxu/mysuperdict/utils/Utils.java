@@ -17,4 +17,7 @@ import java.util.Set;
  * Created by jingouxu on 9/21/14.
  */
 public class Utils {
+    public static String generateUrl(String query){
+        return "http://fanyi.youdao.com/openapi.do?keyfrom=SunnyDict&key=159753549&type=data&doctype=json&version=1.1&q=" + query;
+    }
 }

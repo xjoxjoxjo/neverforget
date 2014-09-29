@@ -14,7 +14,6 @@ import com.superdict.jingouxu.mysuperdict.fragments.NavigationDrawerFragment;
 import com.superdict.jingouxu.mysuperdict.R;
 import com.superdict.jingouxu.mysuperdict.fragments.SearchFragment;
 import com.superdict.jingouxu.mysuperdict.utils.Constants;
-import com.superdict.jingouxu.mysuperdict.utils.Utils;
 import com.superdict.jingouxu.mysuperdict.utils.WordList;
 
 import java.io.IOException;
@@ -25,10 +24,13 @@ import static com.superdict.jingouxu.mysuperdict.activities.NavigationDrawerActi
 public class NavigationDrawerActivity extends SherlockFragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, SearchFragment.OnFragmentInteractionListener {
 
+    public final String TAG = ((Object)this).getClass().getSimpleName();
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
+
+    private String mQuery;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -39,13 +41,17 @@ public class NavigationDrawerActivity extends SherlockFragmentActivity
 
     public ArrayList<String> wordList;
 
+    public NavigationDrawerActivity() {
+    }
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
 
     public enum ActivityUsage{
-        MAIN
+        MAIN,
+        SEARCH_RESULT
     };
 
     @Override
@@ -70,6 +76,12 @@ public class NavigationDrawerActivity extends SherlockFragmentActivity
     }
 
     @Override
+    protected void onResume(){
+        super.onResume();
+        mQuery = null;
+    }
+
+    @Override
     protected void onNewIntent(Intent intent){
         setIntent(intent);
         handleIntent(intent);
@@ -77,9 +89,16 @@ public class NavigationDrawerActivity extends SherlockFragmentActivity
 
     private void selectFragment(){
         Fragment fragment = null;
+        Bundle args = new Bundle();
         switch (mUsage){
             case MAIN:
-                fragment = SearchFragment.newInstance();
+                args.putInt(Constants.ACTIVITY_USAGE, MAIN.ordinal());
+                fragment = SearchFragment.newInstance(args);
+                break;
+            case SEARCH_RESULT:
+                args.putInt(Constants.ACTIVITY_USAGE, SEARCH_RESULT.ordinal());
+                args.putString(Constants.QUERY, mQuery);
+                fragment = SearchFragment.newInstance(args);
                 break;
         }
         FragmentManager fragmentManager = getFragmentManager();
@@ -120,15 +139,24 @@ public class NavigationDrawerActivity extends SherlockFragmentActivity
     }
 
     private void handleIntent(Intent intent){
+        mUsage = ActivityUsage.values()[intent.getIntExtra(Constants.ACTIVITY_USAGE, MAIN.ordinal())];
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             doMySearch(query);
         }
-        mUsage = ActivityUsage.values()[intent.getIntExtra(Constants.ACTIVITY_USAGE, MAIN.ordinal())];
     }
 
     private void doMySearch(String query){
-
+        mQuery = query;
+        selectFragment();
     }
 
+
+    @Override
+    public void startActivity(Intent intent){
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            intent.putExtra(Constants.ACTIVITY_USAGE, NavigationDrawerActivity.ActivityUsage.SEARCH_RESULT.ordinal());
+        }
+        super.startActivity(intent);
+    }
 }
